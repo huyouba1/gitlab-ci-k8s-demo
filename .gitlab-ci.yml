@@ -43,7 +43,7 @@ compile:
 
 image_build:
   stage: release
-  image: docker:latest
+  image: iregistry.baidu-int.com/ist/docker:latest
   variables:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
