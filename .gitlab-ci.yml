@@ -72,6 +72,7 @@ deploy_review:
   script:
     - kubectl version
     - cd manifests/
+    - sed -i "s#__CI_REGISTRY__#${CI_REGISTRY}#" deployment.yaml
     - sed -i "s#__CI_ENVIRONMENT_SLUG__#${CI_ENVIRONMENT_SLUG}#" deployment.yaml ingress.yaml service.yaml
     - sed -i "s#__VERSION__#${CI_COMMIT_REF_NAME}#" deployment.yaml ingress.yaml service.yaml
     - |
@@ -106,7 +107,7 @@ stop_review:
     - kubectl delete all -l ref=${CI_ENVIRONMENT_SLUG}
 
 deploy_live:
-  image: cnych/kubectl
+  image: iregistry.baidu-int.com/ist/kubectl:latest
   stage: deploy
   environment:
     name: live
@@ -117,6 +118,7 @@ deploy_live:
   script:
     - kubectl version
     - cd manifests/
+    - sed -i "s#__CI_REGISTRY__#${CI_REGISTRY}#" deployment.yaml
     - sed -i "s#__CI_ENVIRONMENT_SLUG__#${CI_ENVIRONMENT_SLUG}#" deployment.yaml ingress.yaml service.yaml
     - sed -i "s#__VERSION__#${CI_COMMIT_REF_NAME}#" deployment.yaml ingress.yaml service.yaml
     - kubectl apply -f deployment.yaml
