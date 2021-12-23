@@ -49,7 +49,7 @@ image_build:
     DOCKER_HOST: tcp://localhost:2375
   services:
     - name: iregistry.baidu-int.com/ist/docker:17.03-dind
-      command: ["--insecure-registry=${CI_REGISTRY}"]
+      command: ["--insecure-registry=iregistry.baidu-int.com"]
   script:
     - docker info
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" ${CI_REGISTRY}
