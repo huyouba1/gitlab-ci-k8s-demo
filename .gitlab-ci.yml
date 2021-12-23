@@ -48,7 +48,7 @@ image_build:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
   services:
-    - name: docker:17.03-dind
+    - name: iregistry.baidu-int.com/ist/docker:17.03-dind
       command: ["--insecure-registry=${CI_REGISTRY}"]
   script:
     - docker info
