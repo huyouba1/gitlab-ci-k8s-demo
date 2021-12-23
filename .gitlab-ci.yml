@@ -1,5 +1,5 @@
 image:
-  name: golang:1.10.3-stretch
+  name: iregistry.baidu-int.com/ist/golang:1.10.3-stretch
   entrypoint: ["/bin/sh", "-c"]
 
 # The problem is that to be able to use go get, one needs to put
