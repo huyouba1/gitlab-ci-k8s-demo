@@ -25,7 +25,7 @@ spec:
         - name: myregistry
       containers:
       - name: app
-        image: ${CI_REGISTRY}/gitdemo/gitlab-k8s:__VERSION__
+        image: __CI_REGISTRY__/gitdemo/gitlab-k8s:__VERSION__
         imagePullPolicy: Always
         ports:
         - name: http-metrics
