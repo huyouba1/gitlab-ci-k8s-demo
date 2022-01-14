@@ -1,4 +1,4 @@
-FROM iregistry.baidu-int.com/ist/busybox:1.28.4-glibc
+FROM docker.io/ist/busybox:1.28.4-glibc
 
 COPY app /bin/app
 

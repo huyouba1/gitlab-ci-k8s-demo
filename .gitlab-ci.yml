@@ -1,5 +1,5 @@
 image:
-  name: iregistry.baidu-int.com/ist/golang:1.10.3-stretch
+  name: docker.io/ist/golang:1.10.3-stretch
   entrypoint: ["/bin/sh", "-c"]
 
 # The problem is that to be able to use go get, one needs to put
@@ -43,13 +43,13 @@ compile:
 
 image_build:
   stage: release
-  image: iregistry.baidu-int.com/ist/docker:latest
+  image: docker.io/ist/docker:latest
   variables:
     DOCKER_DRIVER: overlay
     DOCKER_HOST: tcp://localhost:2375
   services:
-    - name: iregistry.baidu-int.com/ist/docker:17.03-dind
-      command: ["--insecure-registry=iregistry.baidu-int.com"]
+    - name: docker.io/ist/docker:17.03-dind
+      command: ["--insecure-registry=docker.io"]
   script:
     - docker info
     - docker login -u "${CI_REGISTRY_USER}" -p "${CI_REGISTRY_PASSWORD}" ${CI_REGISTRY}
@@ -59,7 +59,7 @@ image_build:
     - docker push "$CI_REGISTRY/ist/${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
 
 deploy_review:
-  image: iregistry.baidu-int.com/ist/kubectl:latest
+  image: docker.io/ist/kubectl:latest
   stage: review
   only:
     - branches
@@ -88,7 +88,7 @@ deploy_review:
     - kubectl get all,ing -l ref=${CI_ENVIRONMENT_SLUG}
 
 stop_review:
-  image: iregistry.baidu-int.com/ist/kubectl:latest
+  image: docker.io/ist/kubectl:latest
   stage: review
   variables:
     GIT_STRATEGY: none
@@ -107,7 +107,7 @@ stop_review:
     - kubectl delete all -l ref=${CI_ENVIRONMENT_SLUG}
 
 deploy_live:
-  image: iregistry.baidu-int.com/ist/kubectl:latest
+  image: docker.io/ist/kubectl:latest
   stage: deploy
   environment:
     name: live
